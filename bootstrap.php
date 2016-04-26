@@ -85,31 +85,31 @@ register_shutdown_function('handleShutdown');
 
 
 // Starting ebot Websocket Server
-if (PHP_OS == "Linux") {
-    echo "| Starting eBot Websocket-Server !" . PHP_EOL;
-    $descriptorspec = array(
-        0 => array("pipe", "r"),
-        1 => array("file", APP_ROOT . "logs" . DIRECTORY_SEPARATOR . "websocket.log", "a"),
-//        1 => array("pipe", "w"),
-        2 => array("file", APP_ROOT . "logs" . DIRECTORY_SEPARATOR . "websocket.error", "a")
-//        2 => array("pipe", "w")
-    );
-    $webSocketProcess = proc_open('node ' . APP_ROOT . 'websocket_server.js ' . \eBot\Config\Config::getInstance()->getBot_ip() . ' ' . \eBot\Config\Config::getInstance()->getBot_port(), $descriptorspec, $pipes);
-    if (is_resource($webSocketProcess)) {
-        fclose($pipes[0]);
-        usleep(400000);
-        $status = proc_get_status($webSocketProcess);
-        if (!$status['running']) {
-            echo '| WebSocket server crashed' . PHP_EOL;
-            echo '-----------------------------------------------------' . PHP_EOL;
-            die();
-        }
-        echo "| WebSocket has been started" . PHP_EOL;
-    }
-} else {
-    echo "| You are under windows, please run websocket_server.bat before starting ebot" . PHP_EOL;
-    sleep(5);
-}
+// if (PHP_OS == "Linux") {
+    // echo "| Starting eBot Websocket-Server !" . PHP_EOL;
+    // $descriptorspec = array(
+        // 0 => array("pipe", "r"),
+        // 1 => array("file", APP_ROOT . "logs" . DIRECTORY_SEPARATOR . "websocket.log", "a"),
+       ////1 => array("pipe", "w"),
+        // 2 => array("file", APP_ROOT . "logs" . DIRECTORY_SEPARATOR . "websocket.error", "a")
+       ////2 => array("pipe", "w")
+    // );
+    // $webSocketProcess = proc_open('node ' . APP_ROOT . 'websocket_server.js ' . \eBot\Config\Config::getInstance()->getBot_ip() . ' ' . \eBot\Config\Config::getInstance()->getBot_port(), $descriptorspec, $pipes);
+    // if (is_resource($webSocketProcess)) {
+        // fclose($pipes[0]);
+        // usleep(400000);
+        // $status = proc_get_status($webSocketProcess);
+        // if (!$status['running']) {
+            // echo '| WebSocket server crashed' . PHP_EOL;
+            // echo '-----------------------------------------------------' . PHP_EOL;
+            // die();
+        // }
+        // echo "| WebSocket has been started" . PHP_EOL;
+    // }
+// } else {
+    // echo "| You are under windows, please run websocket_server.bat before starting ebot" . PHP_EOL;
+    // sleep(5);
+// }
 
 /*
 
